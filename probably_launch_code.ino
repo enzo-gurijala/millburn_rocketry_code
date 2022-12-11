@@ -68,12 +68,12 @@ void setup() {
   //BUZZER (COMMENTING THIS OUT FOR NOW)
   
   pinMode(1, OUTPUT); // Set buzzer - pin TX as an output
-  for(int i = 0; i<3; i++) //COMMENT THIS LINE OUT IF YOU DON'T WANT TO HEAR AN ANNOYING BUZZER SOUND. This is to let us know that the battery is properly connected by playing the buzzer.
+  for(int i = 0; i<3; i++)
   {  
-    //tone(buzzer, 1000); // Send 1KHz sound signal...
-    //delay(1000);        // ...for 1 sec
-    //noTone(buzzer);     // Stop sound...
-    //delay(1000);        // ...for 1sec
+    tone(buzzer, 1000); // Send 1KHz sound signal...
+    delay(1000);        // ...for 1 sec
+    noTone(buzzer);     // Stop sound...
+    delay(1000);        // ...for 1sec
   }
   
   for(int i = 0; i < 4; i++) //don't have this line in the actual code (just for testing)
@@ -94,7 +94,6 @@ void loop()
 {
 
 double curr_time = (millis() - start_time )/ 1000.0;
-//Serial.println(curr_time);
 //May want to use this if loop with a buzzer sound so that we know if the BMP isn't reading properly
 
 //  if (! bmp.performReading()) {
@@ -111,7 +110,7 @@ delay(200); //figure out what we want this to be. (this will be the time in betw
 if(servo_spin == true)
 {
   alt = bmp.readAltitude(SEALEVELPRESSURE_HPA); //may have to equal (alt-(altitude of test site))
-    if(alt>=37.1)// || curr_time >= 30)//change this value for test day (probably should be lower than 8509 feet because there will still be upward momentum) (DECIDE THIS)
+    if(alt>=37.1) || curr_time >= 40)    
     {
       myServo.attach(10);
       myServo.write(10);
@@ -130,7 +129,7 @@ if(servo_spin == true)
 
 
   dataString1 += String(a.acceleration.x);
-  dataString1 += " "; //might want to change this to a "," but will keep this for now
+  dataString1 += " ";
   dataString1 += String(a.acceleration.y);
   dataString1 += " ";
   dataString1 += String(a.acceleration.z);
